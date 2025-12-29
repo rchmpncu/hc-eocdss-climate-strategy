@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新竹縣氣候變遷調適策略概述</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 全域設定：定義網頁的基礎氛圍 --- */
+        body { 
+            /* 字體順序：優先使用系統預設，最後使用微軟正黑體 */
+            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif; 
+            background-color: #f0f7f6; /* 網頁底色：淡淡的鴨蛋綠 */
+            padding: 40px 20px;       /* 網頁四周的留白高度 */
+            line-height: 1.8;          /* 設定文字行間距，閱讀起來不擁擠 */
+            color: #2c3e50;            /* 全網頁主要文字顏色：深灰藍色 */
+            margin: 0;                 /* 清除瀏覽器預設的邊距 */
+            -webkit-overflow-scrolling: touch; /* 行動裝置優化：讓捲動更有彈性流暢感 */
+        }
+
+        .container { 
+            max-width: 1200px;         /* 限制內容最大寬度，避免在大螢幕上散開 */
+            margin: auto;              /* 將內容居中對齊 */
+        }
+
+        /* --- 標題區樣式 --- */
+        h1 { 
+            color: #004d40;            /* 標題顏色：深墨綠色 */
+            text-align: center;        /* 標題置中 */
+            font-size: 2.4rem;         /* 字體大小 */
+            margin-bottom: 20px; 
+            font-weight: bold;
+        }
+
+        .header-underline {
+            width: 100%;               /* 橫線寬度 100% */
+            border-bottom: 3px solid #26a69a; /* 設定底部邊框作為裝飾線 */
+            margin-bottom: 40px;
+        }
+
+        /* --- 白色卡片容器設計 --- */
+        .card { 
+            background: #ffffff;       /* 卡片背景：純白 */
+            border-radius: 12px;       /* 邊框圓角 */
+            padding: 40px;             /* 內部文字到邊緣的距離 */
+            box-shadow: 0 4px 20px rgba(0, 77, 64, 0.08); /* 卡片四周的柔和陰影 */
+            border: 1px solid #d1e4e2; /* 卡片細邊框色 */
+            position: relative;        /* 重要：設為相對定位，方便內部的資料來源標籤對齊 */
+            margin-bottom: 30px;       /* 卡片與卡片之間的距離 */
+        }
+
+        .link-title { 
+            color: #006064;            /* 小標題顏色 */
+            font-weight: 800;          /* 字體加粗 */
+            font-size: 1.6em; 
+            border-left: 8px solid #26a69a; /* 左側的綠色裝飾粗條 */
+            padding-left: 15px;
+            margin-bottom: 10px;
+            display: block;            /* 讓它可以像區塊一樣佔據一整行 */
+        }
+
+        .instruction-text {
+            color: #7f8c8d;            /* 說明文字顏色：中灰色 */
+            font-size: 1.05em;
+            margin-bottom: 25px;
+            display: block;
+            padding-left: 23px;
+        }
+
+        /* 專門用來強調「韌性防災專區」的文字顏色 */
+        .highlight-text {
+            color: #2c3e50;            /* 設定為深灰藍色 */
+            font-weight: bold;
+        }
+
+        /* --- 簡報嵌入區樣式 --- */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: calc(56.25% + 30px); /* 16:9 的黃金比例計算公式 */
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;          /* 超出邊框的內容隱藏起來 */
+            background: #000;          /* 預加載背景色：黑色 */
+        }
+
+        .iframe-container iframe {
+            position: absolute;        /* 絕對定位，填滿整個容器 */
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
+        /* --- 右下角資料來源 (註腳版) --- */
+        .source-tag-bottom {
+            position: absolute;        /* 絕對定位 */
+            bottom: 8px;               /* 距離卡片底部 8px */
+            right: 40px;               /* 距離卡片右邊 40px */
+            background-color: transparent; 
+            font-size: 0.85em;         /* 字體縮小，像註腳一樣 */
+            color: #7f8c8d;
+            z-index: 10;               /* 確保標籤顯示在最上層 */
+        }
+
+        .source-tag-bottom a {
+            color: #2c3e50; 
+            text-decoration: underline; /* 加入下劃線方便點擊 */
+            font-weight: bold;
+        }
+
+        /* --- 立體膠囊按鈕排版與動畫 --- */
+        .issue-list { 
+            list-style: none;          /* 移除 HTML 預設的清單圓點 */
+            padding: 0; 
+            display: grid;             /* 使用網格系統佈局 */
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* 自動填滿欄位 */
+            gap: 25px;                 /* 按鈕之間的間距 */
+        }
+
+        .issue-item { 
+            border-radius: 50px;       /* 圓角設為 50px 呈現藥丸/膠囊型 */
+            transition: all 0.2s ease; /* 緩衝動畫：設定為 0.2 秒完成所有變化 */
+            border: 2px solid #2c3e50; /* 按鈕黑色細框線 */
+            background-color: #ffffff;
+            position: relative;
+            top: 0;                    /* 初始垂直高度 */
+            will-change: transform;    /* 效能優化：預告瀏覽器將有位移變化，啟動硬體加速 */
+        }
+
+        .issue-item a { 
+            display: block;            /* 讓整個按鈕區域都可點擊 */
+            padding: 14px 25px; 
+            color: #1a252f; 
+            text-decoration: none; 
+            font-weight: 800; 
+            text-align: center;        /* 文字置中 */
+        }
+
+        /* 懸停效果：滑動到按鈕上的變化 */
+        .issue-item:hover { 
+            top: 3px;                  /* 滑鼠移上去時，按鈕往下移 3px，模擬按壓感 */
+            filter: brightness(0.98);  /* 顏色稍微變暗一點點 */
+        }
+
+        /* --- 個別類別色彩與立體底部底紋 --- */
+        /* box-shadow 第一個值為 0（水平位移），第二個值為 5px（向下位移），產生厚實底部線條 */
+        .cat-landslide { background-color: #fff9f0; box-shadow: 0 5px 0px #EEC979; }
+        .cat-landslide:hover { box-shadow: 0 2px 0px #EEC979; } /* 按下去時，立體底線縮短 */
+
+        .cat-flood { background-color: #f2fdff; box-shadow: 0 5px 0px #66BDCC; }
+        .cat-flood:hover { box-shadow: 0 2px 0px #66BDCC; }
+
+        .cat-drought { background-color: #fdfdf2; box-shadow: 0 5px 0px #B4B881; }
+        .cat-drought:hover { box-shadow: 0 2px 0px #B4B881; }
+
+        .cat-temp { background-color: #fff8f5; box-shadow: 0 5px 0px #D96738; }
+        .cat-temp:hover { box-shadow: 0 2px 0px #D96738; }
+
+        /* --- 響應式設定：針對手機版螢幕優化 --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .card { 
+                padding: 20px 15px 45px 15px; /* 手機版內距縮小，但底部增加高度留給手指滑動 */
+                margin-bottom: 20px;
+            }
+            .issue-list { grid-template-columns: 1fr; gap: 18px; } /* 手機版按鈕改為一列一個 */
+            
+            /* 手機版優化：簡化陰影顏色以減輕 GPU 計算負擔，防止滑動卡頓 */
+            .issue-item { 
+                box-shadow: 0 4px 0px rgba(0,0,0,0.15) !important; 
+            }
+            .cat-landslide:hover, .cat-flood:hover, .cat-drought:hover, .cat-temp:hover {
+                box-shadow: 0 2px 0px rgba(0,0,0,0.15) !important;
+            }
+
+            .source-tag-bottom { 
+                right: 20px; 
+                bottom: 10px; 
+                font-size: 0.75em; 
+            }
+            .instruction-text { padding-left: 15px; font-size: 0.95em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>新竹縣氣候變遷調適策略概述</h1>
+        <div class="header-underline"></div>
+
+        <div class="card">
+            <span class="link-title">調適議題與與地方氣候變遷政策/災防共同目標、業務之關聯</span>
+            <div class="iframe-container">
+                <iframe src="https://docs.google.com/presentation/d/1OZ4E5vnEyeJ8DKj5FCz0IQO6jtbdyRzI/embed?start=false&loop=false&delayms=3000" loading="lazy" allowfullscreen="true"></iframe>
+            </div>
+            <div class="source-tag-bottom">
+                資料來源 <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>：
+                <a href="https://drive.google.com/file/d/1lVH8JmPICrafENUt6V51Ku9crurEXFPw/view?usp=drive_link" target="_blank">《新竹縣氣候變遷調適執行方案（核定本）》</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="link-title">查看更多調適議題與策略... <i class="fas fa-chevron-down"></i></span>
+            
+            <span class="instruction-text">
+                前往本站<span class="highlight-text">韌性防災專區</span>或點選以下<span class="highlight-text">專案地圖</span>：
+            </span>
+
+            <ul class="issue-list">
+                <li class="issue-item cat-landslide"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#1f187859-08de-40d8-b5d9-1df24ed51231" target="_blank">山坡地聚落因應極端坡災</a></li>
+                <li class="issue-item cat-landslide"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#9d97767c-ea43-47ca-938a-0d4f7689c34f" target="_blank">避難收容處所因應極端坡災</a></li>
+                <li class="issue-item cat-landslide"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#f2b87b12-2a2c-416d-a7a3-e81fbec55028" target="_blank">救災應變據點因應極端坡災</a></li>
+                
+                <li class="issue-item cat-flood"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#ae93aa21-2d6c-4f35-be28-15ce0178cc59" target="_blank">各級交通路網因應極端水災</a></li>
+                <li class="issue-item cat-flood"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#ce645d5d-a2e5-49d4-a398-00bbe86eed20" target="_blank">鄰里防災整備因應極端水災</a></li>
+                <li class="issue-item cat-flood"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#c36f1b87-7c7a-4451-a5dc-a6166fac5e11" target="_blank">救災資源單位因應極端水災</a></li>
+                
+                <li class="issue-item cat-drought"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#00f02a31-af55-402a-bedd-3f9d58a7a116" target="_blank">農糧作物因應極端旱災</a></li>
+                
+                <li class="issue-item cat-temp"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#dedbd769-714e-4e3f-8330-d7934652ee16" target="_blank">農糧作物因應極端高低溫</a></li>
+                <li class="issue-item cat-temp"><a href="https://eocdss.ncdr.nat.gov.tw/web/DisasterResilience/ProjectDisplay#ca5fd1d8-d641-4e02-a260-f1b1479e745c" target="_blank">脆弱人口因應極端高溫</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
